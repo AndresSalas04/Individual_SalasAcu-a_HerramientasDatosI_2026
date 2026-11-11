@@ -1,0 +1,102 @@
+---
+title: "Problemática de Listas de espera en Costa Rica"
+subtitle: "Poryecto_Individua_AndresSalas_2026"
+format:
+  revealjs:
+    theme: default
+    css: diseno.css
+    slide-number: true
+    transition: fade
+    width: 1280
+    height: 720
+    center: false
+    pdf-separate-fragments: false
+
+
+---
+
+## Introducción
+
+Las listas de espera constituyen uno de los principales desafíos
+para los sistemas públicos de salud. En Costa Rica, esta problemática representa un reto para la
+Caja Costarricense de Seguro Social (CCSS), institución encargada de proporcionar a la población los servicios de salud en forma integral (prevención, tratamiento y rehabilitación), debido a las
+demoras que experimentan los pacientes para acceder a: 
+- Consultas especializadas. 
+- Procedimientos médicos.
+- Intervenciones quirúrgicas.
+
+## Problemática mundial
+
+A nivel mundial, la atención médica sufre diversos problemas como saturaciones, faltas de personal y horas de consulta, factores que alteran el acceso de la población a servicios médicos. Sin embargo, no todos los países sufren de misma manera esta problemática, algunos se han adaptado tomando medidas necesarias que en Costa Rica podrian ser útiles también.
+
+## Objetivo Principal
+
+Analizar la problemática de las listas de espera en el sistema
+de salud público de Costa Rica, mediante el estudio de datos
+estadísticos y la comparación de estrategias implementadas
+en otros países.
+
+```{r}
+#| label: cargar-paquetes
+#| include: false
+
+library(dplyr)
+
+```
+
+```{r}
+#| label: cargar-datos
+#| include: false
+
+source("01_Importar_Datos.R")
+
+```
+
+## Listas de espera por región
+
+
+### Consulta externa
+
+```{r}
+knitr::kable(
+  region_ce,
+  format = "html",
+  align = "c"
+)
+
+```
+
+
+
+### Cirugías
+
+```{r}
+knitr::kable(
+  region_q,
+  format = "html",
+  align = "c"
+)
+```
+
+## Evolución mensual de las listas de espera
+
+### Consulta externa
+
+```{r}
+knitr::kable(
+  mensual_ce,
+  format = "html",
+  align = "c"
+)
+
+```
+
+### Cirugías
+
+```{r}
+knitr::kable(
+  mensual_q,
+  format = "html",
+  align = "c"
+)
+```
