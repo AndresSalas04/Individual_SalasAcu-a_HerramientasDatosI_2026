@@ -1,0 +1,191 @@
+
+/* =========================================
+   DISEÑO GENERAL
+   ========================================= */
+
+:root {
+  --azul: #174A70;
+  --azul-oscuro: #10364F;
+  --turquesa: #328FA1;
+  --verde-claro: #DCEFED;
+  --fondo: #F5F8FA;
+  --blanco: #FFFFFF;
+  --texto: #315568;
+  --gris: #E4EBEF;
+}
+
+/* Fondo y texto de las diapositivas */
+
+.reveal-viewport {
+  background: var(--fondo);
+}
+
+.reveal {
+  color: var(--texto);
+  font-family: "Arial", sans-serif;
+}
+
+.reveal .slides section {
+  background: var(--fondo);
+  color: var(--texto);
+  text-align: left;
+  padding: 30px 50px;
+  box-sizing: border-box;
+}
+
+/* =========================================
+   1. PORTADA
+   ========================================= */
+
+.reveal .slides section#title-slide {
+  background: var(--azul-oscuro) !important;
+  color: var(--blanco) !important;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 60px;
+}
+
+.reveal #title-slide h1 {
+  color: var(--blanco);
+  font-size: 2.3em;
+  font-weight: bold;
+  line-height: 1.2;
+  margin-bottom: 25px;
+}
+
+.reveal #title-slide .subtitle {
+  color: var(--verde-claro);
+  font-size: 1.15em;
+  margin-bottom: 35px;
+}
+
+.reveal #title-slide .quarto-title-authors,
+.reveal #title-slide .date {
+  color: var(--blanco);
+}
+
+/* =========================================
+   2. DIAPOSITIVAS DE CONTENIDO
+   ========================================= */
+
+/* Títulos de las diapositivas */
+.reveal .slides section:not(#title-slide) h1,
+.reveal .slides section:not(#title-slide) h2 {
+  color: var(--azul);
+  font-weight: bold;
+  border-bottom: 4px solid var(--turquesa);
+  padding-bottom: 8px;
+  margin-top: -25px;
+  margin-bottom: 15px;
+}
+
+/* Subtítulos */
+.reveal .slides section:not(#title-slide) h3 {
+  color: var(--turquesa);
+  font-weight: bold;
+}
+
+/* Texto */
+.reveal .slides section:not(#title-slide) p,
+.reveal .slides section:not(#title-slide) li {
+  color: var(--texto);
+  line-height: 1.35;
+}
+/* Listas */
+
+.reveal .slides section:not(#title-slide) li {
+  margin-bottom: 10px;
+}
+
+/* =========================================
+   PANELES Y CUADROS
+   ========================================= */
+
+.reveal .slides section .panel {
+  background: var(--blanco);
+  border-left: 6px solid var(--turquesa);
+  border-radius: 10px;
+  padding: 20px 25px;
+  margin: 15px 0;
+  box-shadow: 0 3px 10px rgba(16, 54, 79, 0.08);
+}
+
+.reveal .slides section .panel-azul {
+  background: var(--azul);
+  color: var(--blanco);
+  border-radius: 10px;
+  padding: 20px 25px;
+  margin: 15px 0;
+}
+
+.reveal .slides section .panel-verde {
+  background: var(--verde-claro);
+  border-radius: 10px;
+  padding: 20px 25px;
+  margin: 15px 0;
+}
+
+/* =========================================
+   TABLAS
+   ========================================= */
+
+/* Diseño general */
+.reveal table {
+  width: 100%;
+  font-size: 13px;
+  border-collapse: collapse;
+  margin: 5px auto;
+}
+
+/* Espacio interno */
+.reveal table th,
+.reveal table td {
+  padding: 5px 5px;
+  text-align: center;
+}
+
+/* Encabezados */
+.reveal table th {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+/* Distribución de columnas */
+.reveal .columns {
+  display: flex;
+  gap: 25px;
+  align-items: flex-start;
+}
+
+.reveal .column {
+  min-width: 0;
+}
+
+/* Subtítulos dentro de las columnas */
+.reveal .column h3 {
+  font-size: 15px;
+  margin-top: 8px;
+  margin-bottom: 15px;
+}
+
+/* =========================================
+   GRÁFICOS E IMÁGENES
+   ========================================= */
+
+.reveal .slides section img {
+  max-height: 480px;
+  object-fit: contain;
+}
+
+/* =========================================
+   NUMERACIÓN
+   ========================================= */
+
+.reveal .slide-number {
+  color: var(--turquesa);
+  background: transparent;
+  font-size: 16px;
+}
