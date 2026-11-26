@@ -24,5 +24,5 @@ mensual_ce <- mensualce %>%
 mensual_q <- mensualq %>% 
   dplyr::select(-1)
 
-
+especialidad <- especialidades
 

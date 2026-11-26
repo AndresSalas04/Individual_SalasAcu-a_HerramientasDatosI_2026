@@ -1,102 +1,376 @@
 ---
-title: "Problemática de Listas de espera en Costa Rica"
-subtitle: "Poryecto_Individua_AndresSalas_2026"
+title: "Listas de espera en el sistema de salud de Costa Rica"
+subtitle: "Análisis estadístico y comparación regional"
+author: "Andrés Salas"
+date: "2026"
+lang: es
+
 format:
-  revealjs:
-    theme: default
-    css: diseno.css
-    slide-number: true
-    transition: fade
-    width: 1280
-    height: 720
-    center: false
-    pdf-separate-fragments: false
+  typst:
+    toc: true
+    number-sections: true
+    papersize: a4
+    fontsize: 12pt
+    linestretch: 1.5
+    margin:
+      x: 2.5cm
+      y: 2.5cm
 
-
+execute:
+  echo: false
+  warning: false
+  message: false
 ---
 
-## Introducción
 
-Las listas de espera constituyen uno de los principales desafíos
-para los sistemas públicos de salud. En Costa Rica, esta problemática representa un reto para la
-Caja Costarricense de Seguro Social (CCSS), institución encargada de proporcionar a la población los servicios de salud en forma integral (prevención, tratamiento y rehabilitación), debido a las
-demoras que experimentan los pacientes para acceder a: 
-- Consultas especializadas. 
-- Procedimientos médicos.
-- Intervenciones quirúrgicas.
+# Introducción
 
-## Problemática mundial
+Las listas de espera constituyen uno de los principales desafíos para los sistemas públicos de salud. En Costa Rica, esta problemática representa un reto para la Caja Costarricense de Seguro Social (CCSS), institución encargada de brindar servicios de salud integrales a la población, debido a las demoras que experimentan los pacientes para acceder oportunamente a distintos servicios médicos.
 
-A nivel mundial, la atención médica sufre diversos problemas como saturaciones, faltas de personal y horas de consulta, factores que alteran el acceso de la población a servicios médicos. Sin embargo, no todos los países sufren de misma manera esta problemática, algunos se han adaptado tomando medidas necesarias que en Costa Rica podrian ser útiles también.
+Este proyecto se centra en el análisis de dos componentes fundamentales de esta problemática: las consultas especializadas y las intervenciones quirúrgicas. A partir de los registros de casos pendientes y los tiempos promedio de espera, se busca examinar la situación de ambos servicios y determinar cómo se distribuye esta problemática en el territorio nacional.
 
-## Objetivo Principal
+Además de la cantidad de pacientes pendientes, resulta importante considerar las diferencias geográficas en el acceso a los servicios de salud. La ubicación de los establecimientos, la disponibilidad de especialidades médicas y la concentración de determinados servicios pueden generar condiciones desiguales entre las regiones del país. Por esta razón, el análisis incorpora una perspectiva regional que permite identificar estas diferencias y reconocer los posibles efectos de la centralización de los servicios médicos de mayor especialización.
 
-Analizar la problemática de las listas de espera en el sistema
-de salud público de Costa Rica, mediante el estudio de datos
-estadísticos y la comparación de estrategias implementadas
-en otros países.
+## Brecha regional 
+
+El acceso a los servicios médicos no se distribuye de manera uniforme en el territorio costarricense. Las distintas regiones pueden presentar diferencias tanto en la cantidad de casos pendientes como en los tiempos que deben esperar los pacientes para recibir atención. Estas variaciones permiten identificar posibles desigualdades en la capacidad de respuesta de los servicios de salud y en las condiciones de acceso que enfrenta la población según su ubicación geográfica.
+
+Esta brecha también debe analizarse considerando la distribución de los hospitales nacionales y centros especializados, los cuales se concentran principalmente en la Gran Área Metropolitana (GAM). Estos establecimientos ofrecen servicios médicos de alta especialización que no se encuentran disponibles en todas las regiones, como determinados tratamientos y atenciones relacionadas con enfermedades oncológicas. En consecuencia, las personas que requieren estos servicios pueden verse obligadas a trasladarse desde distintas partes del país hasta dichos centros, lo que añade una dimensión geográfica al problema de las listas de espera.
+
+Por tanto, el análisis regional no solo busca comparar la cantidad de casos pendientes y los tiempos de espera entre regiones, sino también comprender cómo la distribución territorial de los servicios médicos puede influir en las oportunidades de acceso a la atención especializada.
+
+# Objetivo Principal
+
+Analizar descriptivamente el comportamiento de las listas de espera de la CCSS mediante indicadores de cantidad de pacientes pendientes y tiempos promedio de espera, identificando sus principales variaciones y diferencias entre estos servicios de manera regional.
+
 
 ```{r}
-#| label: cargar-paquetes
+#| label: cargar-funciones
 #| include: false
 
+source("02_funciones.R")
 library(dplyr)
-
+library(knitr)
 ```
 
-```{r}
-#| label: cargar-datos
-#| include: false
+# Datos y metodología
 
-source("01_Importar_Datos.R")
+Para el desarrollo del análisis se utilizaron datos sobre las listas de espera de la Caja Costarricense de Seguro Social (CCSS), considerando información relacionada con consulta externa y atención quirúrgica.
 
-```
+Se emplearon dos indicadores principales: la cantidad de casos pendientes y los días promedio de espera. Estos indicadores permiten examinar tanto la magnitud de las listas de espera como los tiempos que deben aguardar los pacientes.
 
-## Listas de espera por región
+El análisis se realizó mediante técnicas estadísticas descriptivas utilizando el lenguaje de programación R. Se elaboraron tablas de resumen, ordenamientos y comparaciones para identificar diferencias entre regiones, eliminando primeramente los datos de registros en hospitales nacionales y centros especializados para determinar mejor los accesos directamente en las regiones del país, analizando resultados de esta forma y luego se vuelven a agregar los datos de los centros especializados para tener un registro total de todos los casos pendientes registrados hasta agosto del 2026 de la base de datos encontrada.
 
+# Resultados
 
-### Consulta externa
+## Presentación general de las listas de espera
 
-```{r}
-knitr::kable(
-  region_ce,
-  format = "html",
-  align = "c"
-)
-
-```
-
-
-
-### Cirugías
+En primer lugar, se presenta una comparación entre las listas de espera de consulta externa y las intervenciones quirúrgicas. Esto permite observar la cantidad de casos pendientes y los tiempos promedio de espera para ambos tipos de atención.
 
 ```{r}
 knitr::kable(
-  region_q,
-  format = "html",
-  align = "c"
+  tabla_resumen_general,
+  format = "pipe",
+  align = "c",
+  caption = "Resumen general de las listas de espera en Costa Rica."
 )
 ```
 
-## Evolución mensual de las listas de espera
+Los resultados muestran que la consulta externa registra 384 940 casos pendientes y un tiempo promedio de espera de 564 días. Por su parte, la atención quirúrgica presenta 213 402 casos pendientes y un promedio de 447 días de espera.
 
-### Consulta externa
+Esto evidencia diferencias entre ambos tipos de atención, tanto en la cantidad de pacientes pendientes como en los tiempos promedio de espera.
+
+La siguiente gráfica permite comparar visualmente la cantidad de casos pendientes entre ambos tipos de atención.
+
+```{r}
+grafico_resumen
+```
+
+## Análisis regional de las listas de espera
+
+### Distribución regional de consulta externa
+
+Se presenta la distribución de los casos pendientes y los días promedio de espera correspondientes a consulta externa, considerando las siete regiones territoriales y los hospitales nacionales y centros especializados.
 
 ```{r}
 knitr::kable(
-  mensual_ce,
-  format = "html",
-  align = "c"
+  tabla_region_ce,
+  format = "pipe",
+  align = "c",
+  caption = "Listas de espera por región: consulta externa."
 )
+```
+
+### Comparaciones regionales de consulta externa
+
+A continuación, se presenta la distribución de los casos pendientes y los días promedio de espera en las distintas regiones del país.
+
+#### Casos pendientes
+
+```{r}
+grafico_casos_ce
 
 ```
 
-### Cirugías
+Central Norte presenta la mayor cantidad de casos pendientes, seguida de Central Sur y Huetar Norte.
+
+
+Por otro lado, la región Huetar Atlántica registra la menor cantidad de casos pendientes, seguida de Brunca y Chorotega.
+
+#### Tiempos promedio de espera
+
+
+```{r}
+grafico_dias_ce
+```
+
+Huetar Norte presenta el mayor tiempo promedio de espera, con 904 días, seguida de Central Norte y Huetar Atlántica.
+
+
+Y la región Brunca registra el menor tiempo promedio de espera, seguida de Chorotega y Central Sur.
+
+Estos resultados muestran que las regiones con mayor cantidad de casos pendientes no necesariamente presentan los mayores tiempos promedio de espera.
+
+#### Diferencias regionales
+
+Para complementar las comparaciones anteriores, se calcula la diferencia entre los valores máximos y mínimos de las regiones territoriales.
+
+```{r}
+tabla_brechas_ce <- tibble(
+  Indicador = c(
+    "Diferencia en casos pendientes",
+    "Diferencia en días promedio de espera"
+  ),
+  Diferencia = c(
+    brecha_casos_regional_ce,
+    brecha_dias_regional_ce
+  )
+)
+
+knitr::kable(
+  tabla_brechas_ce,
+  format = "pipe",
+  align = "c",
+  caption = "Diferencias entre los valores máximos y mínimos regionales en consulta externa."
+)
+```
+
+Estas diferencias permiten observar la amplitud de la variación territorial en la cantidad de casos pendientes y los tiempos promedio de espera.
+
+### Distribución regional de intervenciones quirúrgicas
+
+A continuación, se muestra la distribución regional de las listas de espera correspondientes a las intervenciones quirúrgicas.
 
 ```{r}
 knitr::kable(
-  mensual_q,
-  format = "html",
-  align = "c"
+  tabla_region_q,
+  format = "pipe",
+  align = "c",
+  caption = "Listas de espera por región: intervenciones quirúrgicas."
 )
 ```
+
+### Comparaciones regionales de intervenciones quirúrgicas
+
+Se identificaron las regiones con mayor y menor cantidad de casos pendientes, así como aquellas que presentan los mayores y menores tiempos promedio de espera.
+
+#### Casos pendientes
+
+```{r}
+grafico_casos_q
+```
+
+Central Norte presenta la mayor cantidad de casos pendientes, seguida de Central Sur y Chorotega.
+
+
+#### Tiempos promedio de espera
+
+```{r}
+grafico_dias_q
+```
+
+La región Chorotega presenta el mayor tiempo promedio de espera, seguida de Central Sur y Central Norte.
+
+La región Brunca registra el menor tiempo promedio de espera, seguida de Huetar Atlántica y Huetar Norte.
+
+
+#### Diferencias regionales
+
+Se calcula la diferencia entre los valores máximos y mínimos de las regiones territoriales para ambos indicadores.
+
+```{r}
+tabla_brechas_q <- tibble(
+  Indicador = c(
+    "Diferencia en casos pendientes",
+    "Diferencia en días promedio de espera"
+  ),
+  Diferencia = c(
+    brecha_casos_regional,
+    brecha_dias_regional
+  )
+)
+
+knitr::kable(
+  tabla_brechas_q,
+  format = "pipe",
+  align = "c",
+  caption = "Diferencias entre los valores máximos y mínimos regionales en intervenciones quirúrgicas."
+)
+```
+
+Estas brechas permiten observar las diferencias territoriales en la cantidad de casos pendientes y los tiempos promedio de espera de las intervenciones quirúrgicas.
+
+## Comparación estadística entre ambos servicios
+
+Una vez examinadas las diferencias regionales de cada servicio, se realiza una comparación estadística general considerando las siete regiones territoriales. El propósito de este análisis es complementar los resultados anteriores mediante medidas que permitan comprender el comportamiento general de las listas de espera y determinar qué tan homogénea o variable es la situación entre las regiones.
+
+Para ello, se utilizan medidas de tendencia central y dispersión: media, mediana, desviación estándar, valores mínimo y máximo, rango y coeficiente de variación. Estas medidas permiten identificar los valores centrales de los indicadores, así como las diferencias existentes entre las regiones. En particular, el coeficiente de variación permite comparar la dispersión relativa de los datos, incluso cuando los indicadores se expresan en escalas diferentes.
+
+### Consulta Externa
+
+Cuadro. Estadísticos descriptivos regionales de consulta externa.
+```{r}
+comparacion_estadistica_regional %>%
+  filter(Servicio == "Consulta externa") %>%
+  select(
+    Indicador,
+    Media,
+    Mediana,
+    Desviacion_estandar,
+    Coeficiente_variacion
+  ) %>%
+  mutate(
+    Indicador = recode(
+      Indicador,
+      "Días promedio de espera" = "Espera (días)"
+    )
+  ) %>%
+  rename(
+    `Desv. estándar` = Desviacion_estandar,
+    `Coef. variación` = Coeficiente_variacion
+  ) %>%
+  knitr::kable(
+    format = "pipe",
+    digits = 2,
+    align = "c",
+    caption = "Estadísticos descriptivos regionales de consulta externa."
+  )
+
+```
+
+Se evidencia una considerable dispersión en la cantidad de pacientes pendientes entre las regiones. Esto indica que la distribución de los casos no es uniforme y que algunas regiones concentran una mayor cantidad de pacientes que otras.
+
+### Intervenciones quirúrgicas
+
+Cuadro. Estadísticos descriptivos regionales de intervenciones quirúrgicas.
+```{r}
+comparacion_estadistica_regional %>%
+  filter(Servicio == "Intervenciones quirúrgicas") %>%
+  select(
+    Indicador,
+    Media,
+    Mediana,
+    Desviacion_estandar,
+    Coeficiente_variacion
+  ) %>%
+  mutate(
+    Indicador = recode(
+      Indicador,
+      "Días promedio de espera" = "Espera (días)"
+    )
+  ) %>%
+  rename(
+    `Desv. estándar` = Desviacion_estandar,
+    `Coef. variación` = Coeficiente_variacion
+  ) %>%
+  knitr::kable(
+    format = "pipe",
+    digits = 2,
+    align = "c",
+    caption = "Estadísticos descriptivos regionales de intervenciones quirúrgicas."
+  )
+
+```
+
+Muestra que también existen diferencias importantes en la distribución de los pacientes pendientes entre las regiones, aunque la dispersión relativa es menor que en consulta externa.
+
+## Concentración de casos pendientes
+
+También se examinó la concentración de casos pendientes en todas las regiones, viendo el porcentaje de casos pendientes que tiene cada una de ellas.
+
+```{r}
+knitr::kable(
+  tabla_distribucion_regional,
+  format = "pipe",
+  digits = 1,
+  align = "c",
+  caption = "Distribución de casos pendientes por región territorial."
+)
+```
+
+## Hospitales nacionales y centros especializados
+
+Los hospitales nacionales y centros especializados se presentan por separado de las regiones territoriales, debido a sus características particulares dentro de la distribución de los servicios de salud.
+
+En consulta externa se registran los siguientes datos:
+
+```{r}
+knitr::kable(
+  hospitales_nacionales_ce,
+  format = "pipe",
+  align = "c",
+  caption = "Lista de espera de consulta externa en hospitales nacionales y centros especializados."
+)
+```
+
+Para las intervenciones quirúrgicas, se presentan los siguientes resultados:
+
+```{r}
+knitr::kable(
+  hospitales_nacionales,
+  format = "pipe",
+  align = "c",
+  caption = "Lista de espera quirúrgica en hospitales nacionales y centros especializados."
+)
+```
+
+### Distribución porcentual del total general
+
+Además de analizar la concentración de casos en las tres regiones,también se examina la participación porcentual de cada región y de los hospitales nacionales y centros especializados respecto al total general de cada servicio.
+
+A diferencia del análisis de concentración anterior, en este cálculo se incluyen todas las categorías, de manera que los porcentajes representan la distribución completa de los casos pendientes de consulta externa y de intervenciones quirúrgicas.
+
+```{r}
+knitr::kable(
+  tabla_distribucion_total,
+  format = "pipe",
+  digits = 1,
+  col.names = c(
+    "Región",
+    "Casos CE",
+    "Porcentaje CE (%)",
+    "Casos Q",
+    "Porcentaje Q (%)"
+  ),
+  align = "c",
+  caption = "Distribución porcentual de los casos pendientes respecto al total general de cada servicio."
+)
+```
+
+Aqui se obtiene una visión más completa de como es el funcionamiento de atención a servicios médicos en todo el país, los hospitales nacionales y centros especializados se llevan la mayor cantidad de casos pendientes, pero al estar todos ubicados en las regiones centrales, provoca que las personas tengan que trasladarse, provocando un aumento en la brecha regional que se está interpretando.
+
+# Conclusiones
+
+Los resultados del análisis evidencian que las listas de espera de la CCSS no representan únicamente un problema de cantidad de pacientes pendientes, sino también una brecha en el acceso oportuno a los servicios de salud según la ubicación geográfica de la población.
+
+En el ámbito regional, se observa una mayor concentración de casos pendientes en las regiones centrales del país, las cuales también presentan importantes tiempos de espera. Esto refleja una presión considerable sobre los servicios de salud de estas zonas. Sin embargo, la cantidad de casos pendientes no necesariamente determina la gravedad de la situación de cada región. Un ejemplo de ello es la región Huetar Norte, que registra la menor cantidad de casos pendientes, pero presenta el mayor tiempo promedio de espera. Esta situación evidencia que incluso las regiones con una menor cantidad de pacientes en lista pueden enfrentar dificultades importantes para acceder oportunamente a la atención médica.
+
+Por otra parte, la brecha se amplía al considerar los hospitales nacionales y centros especializados, cuya ubicación se concentra en la Gran Área Metropolitana (GAM). Estos establecimientos brindan servicios de alta especialización que no están disponibles en todas las regiones del país, incluyendo la atención de enfermedades como el cáncer. Como consecuencia, las personas que requieren este tipo de atención deben trasladarse desde sus comunidades hasta estos centros, independientemente de la distancia que deban recorrer. Esto representa una desigualdad adicional, ya que el acceso a determinados servicios no depende únicamente de los tiempos de espera, sino también de la ubicación de los establecimientos que los ofrecen y de las dificultades que implica desplazarse hasta ellos.
+
+En conjunto, estos resultados muestran que las listas de espera también reflejan desigualdades territoriales en el acceso a la atención médica. Por tanto, abordar esta problemática requiere considerar no solo la cantidad de casos pendientes y los tiempos de espera, sino también la distribución geográfica de los servicios de salud y las condiciones que enfrenta la población para acceder a ellos.
+
+# Referencias
+
+https://www.ccss.sa.cr/listas-atencion
+## Enlace al repositorio 
+"https://github.com/AndresSalas04/Individual_SalasAcu-a_HerramientasDatosI_2026.git"

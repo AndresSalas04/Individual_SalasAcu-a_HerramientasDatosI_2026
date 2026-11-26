@@ -2,3 +2,17 @@
 .Rhistory
 .RData
 .Ruserdata
+
+# Archivos generados por Quarto
+*_files/
+*.knit.md
+cod/.quarto/
+
+# Archivos temporales de R
+.Rhistory
+.RData
+.Rproj.user/
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
