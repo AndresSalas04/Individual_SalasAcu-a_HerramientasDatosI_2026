@@ -261,7 +261,7 @@ tabla_distribucion_regional <- full_join(
     Porcentaje_Q = scales::percent(Porcentaje_Q / 100, accuracy = 0.1)
   )
 # ============================================================
-# 6. GRÁFICOS
+# 5. GRÁFICOS
 # ============================================================
 
 # 1. Gráfico genberal de casos pendientes por tipo de atención
